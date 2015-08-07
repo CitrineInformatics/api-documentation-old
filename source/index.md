@@ -50,7 +50,7 @@ client.search(term='RbOs2O6', from_page=0, per_page=10)
 ```
 
 ```shell
-curl --data "term=GaN&from=0&per_page=10"
+curl --data "term=RbOs2O6&from=0&per_page=10"
  "https://your-site.citrination.com/api/mifs/search"
   -H "X-API-Key: your-api-key"
   -H "Content-Type: application/json"
@@ -122,7 +122,7 @@ client.search(term='RbOs2O6', from_page=0, per_page=10, data_set_id=213)
 ```
 
 ```shell
-curl --data "term=GaN&from=0&per_page=10"
+curl --data "term=RbOs2O6&from=0&per_page=10"
  "https://your-site.citrination.com/api/data_sets/213/mifs/search"
   -H "X-API-Key: your-api-key"
   -H "Content-Type: application/json"
