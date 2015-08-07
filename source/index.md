@@ -19,6 +19,8 @@ Welcome to the Citrination API Documentation! The Citrination API can be used to
 
 We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
+Data from the API is returned in the MIF file format. Read more about the [Mif file format](http://citrineinformatics.github.io/mif-documentation). Our documentation also references a  python reference implementation. Download the [python reference implementation](https://github.com/CitrineInformatics/python-citrination-client).
+
 # Authentication
 
 > To authenticate, you must obtain your API key from Citrine Informatics
