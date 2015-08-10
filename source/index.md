@@ -31,7 +31,7 @@ from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://yoursite.citrination.com')
 ```
 
-```
+```shell
 # Authentication tokens must be applied to the headers of any requests made to the Citrination API
 curl "api_endpoint_here"
   -H "X-API-Key: your-unique-api-key"
