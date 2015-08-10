@@ -33,11 +33,11 @@ client = CitrinationClient('your-unique-api-key', 'https://yoursite.citrination.
 
 ```shell
 # Authentication tokens must be applied to the headers of any requests made to the Citrination API
-curl "api_endpoint_here"
+curl "https://yoursite.citrination.com"
   -H "X-API-Key: your-unique-api-key"
 ```
 
-Citrination uses API keys to allow access to the API. You can register a new Kittn API key by logging in to your instance of Citrination, clicking on your username and selecting 'Account'.
+Citrination uses API keys to allow access to the API. You can register a new API key by logging in to your instance of Citrination, clicking on your username and selecting 'Account'.
 
 Citrination expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
@@ -200,7 +200,7 @@ per_page | false | If using pagination, sets how many records to return. Default
 Don't forget your API key!
 </aside>
 
-
+<!--
 ## Upload Data
 ```python
 from citrination_client import CitrinationClient
@@ -211,3 +211,4 @@ client.upload(name='My Published Paper', description='Band Gaps of My Favorite C
 You can upload data using the python client, but not directly through HTTP at this time.
 Uploading data will start it off in our data processing pipeline, and in a few minutes time
 it will be available on the web via https://your-site.citrination.com/data_uploads
+-->
