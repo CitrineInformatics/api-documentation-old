@@ -56,7 +56,7 @@ The API can be easily accessed using HTTP requests or a python client. An implem
 # Retrieve the power factor of CrFeSn
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10)
+r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10)
 ```
 
 ```shell
@@ -158,9 +158,13 @@ Results from a search across [all data sets](#search_all) or a [single data set]
 
 The top level object of a search result contains three fields: hits, which gives the number of results that were found; time, which is the number of milliseconds that the search endpoint took to run the query; results, which contains the records that matched the search query. The value of the results field is structured according to the [MIF Schema](http://citrineinformatics.github.io/mif-documentation).
 
+#### Python Response
+
+The return object of CitrinationClient.search() is a [response object](http://www.python-requests.org/en/latest/api/#requests.Response) from the [requests package](http://www.python-requests.org). In the search examples, r.status_code gives the status code from the API response and r.json() decodes the content of the response from JSON.
+
 ### Rate Limiting
 
-Access to the search API is rate-limited. Currently users must wait 10 seconds between search requests via the API. The API will return a 429 response code when the rate limit is exceeded (note that the timer is reset each time that a request is made, regardless of whether results were returned or not).
+Access to the search API is rate-limited. Currently users must wait 10 seconds between search requests via the API. The API will return a 403 response code when the rate limit is exceeded (note that the timer is reset each time that a request is made, regardless of whether results were returned or not).
 
 <!--
 ## Upload Data
