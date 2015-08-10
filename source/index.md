@@ -46,170 +46,61 @@ curl https://your-site.citrination.com
   -H 'X-API-Key: your-unique-api-key'
 ```
 
-The API can be easily accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from https://github.com/CitrineInformatics/python-citrination-client
+The API can be easily accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from [https://github.com/CitrineInformatics/python-citrination-client](https://github.com/CitrineInformatics/python-citrination-client).
 
 ## Search API
 
-### Search All Data Sets
+### <a name="search_all">Search All Data Sets</a>
 
 ```python
 # Retrieve the power factor of CrFeSn
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-client.search(formula='CrFeSn', property='Power factor' from_page=0, per_page=10)
+client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10)
 ```
 
 ```shell
-curl --data "term=RbOs2O6&from=0&per_page=10"
- "https://your-site.citrination.com/api/mifs/search"
-  -H "X-API-Key: your-api-key"
-  -H "Content-Type: application/json"
+# Retrieve the power factor of CrFeSn
+curl https://your-site.citrination.com/api/mifs/search
+  -H 'X-API-Key: your-api-key'
+  -d 'formula=CrFeSn&property=power+factor&from=0&per_page=10'
 ```
 
-
-
-
-
-
-
-> The above command returns JSON structured like this:
-
-```json
-{
-    "sample": {
-        "data_set_id": 213,
-        "material": {
-            "chemicalFormula": "RbOs2O6"
-        },
-        "measurement": [
-            {
-                "property": {
-                    "units": "K",
-                    "scalar": [
-                        {
-                            "value": "6.3"
-                        }
-                    ],
-                    "name": "Superconducting critical temperature (Tc)"
-                },
-                "reference": [
-                    {
-                        "url": "http://arxiv.org/abs/1109.5422v1"
-                    },
-                    {
-                        "doi": "10.1143/jpsj.80.104708"
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-
-This endpoint searches data based on text input to the term field. We index chemical formulas in a variety of ways, and the term field in this method is very flexible. For example, you could search "band gap of gallium nitride", or "ternary oxides" and get back a variety of interesting results, ranked according to our proprietary scoring algorithm.
-
-### Query Parameters
-
-Parameter | Required | Description
---------- | ------- | -----------
-term | true | The basic search query
-formula | false | Limit the search results by the chemical formula entered here
-property | false | Name of the property to search for
-contributor | false | Limit the search results by the name of the person that contributed the data
-reference | false | Limit the search results by the original reference for the data
-min_measurement | false | Minimum decimal value for property value
-max_measurement | false | Maximum decimal value for property value
-from | false | If using pagination, set the starting record. Defaults to 0
-per_page | false | If using pagination, sets how many records to return. Defaults to 10
-
-
-<aside class="success">
-Don't forget your API key!
-</aside>
-
-
-## Search a specific data set  
-```python
-from citrination_client import CitrinationClient
-client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-client.search(term='RbOs2O6', from_page=0, per_page=10, data_set_id=213)
-```
-
-```shell
-curl --data "term=RbOs2O6&from=0&per_page=10"
- "https://your-site.citrination.com/api/data_sets/213/mifs/search"
-  -H "X-API-Key: your-api-key"
-  -H "Content-Type: application/json"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-    "sample": {
-        "data_set_id": 213,
-        "material": {
-            "chemicalFormula": "RbOs2O6"
-        },
-        "measurement": [
-            {
-                "property": {
-                    "units": "K",
-                    "scalar": [
-                        {
-                            "value": "6.3"
-                        }
-                    ],
-                    "name": "Superconducting critical temperature (Tc)"
-                },
-                "reference": [
-                    {
-                        "url": "http://arxiv.org/abs/1109.5422v1"
-                    },
-                    {
-                        "doi": "10.1143/jpsj.80.104708"
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-This API is identical to the main search API, but limited to a particular data_set. You will notice that the search results include a "mif_id" field. This ID is the value to supply to the data_sets endpoint when searching.
-
-This endpoint searches data based on text input to the term field. We index chemical formulas in a variety of ways, and the term field in this method is very flexible. For example, you could search "band gap of gallium nitride", or "ternary oxides" and get back a variety of interesting results, ranked according to our proprietary scoring algorithm.
-
-<aside class="warning">
-You can use a ? in the 'term' parameter to retrieve all structured data for a given sample.
-</aside>
-
-### HTTP Request
-
-`POST https://your-site.citrination.com/api/data_sets/<id>/mifs/search`
-
-### URL Parameters
+The general search API is accessed at https://your-site.citrination.com/api/mifs/search. This will search across all data sets stored at your-site.citrination.com. The following parameters are supported (all are optional):
 
 Parameter | Description
---------- | -----------
-ID | The ID of the sample to search
-
-### Query Parameters
-
-Parameter | Required | Description
 --------- | ------- | -----------
-term | true | The basic search query
-formula | false | Limit the search results by the chemical formula entered here
-contributor | false | Limit the search results by the name of the person that contributed the data
-reference | false | Limit the search results by the original reference for the data
-min_measurement | false | Minimum decimal value for property value
-max_measurement | false | Maximum decimal value for property value
-from | false | If using pagination, set the starting record. Defaults to 0
-per_page | false | If using pagination, sets how many records to return. Defaults to 10
+term | The basic search query. Terms entered here are searched for in all fields.
+formula | Limit the search results by chemical formula.
+property | Limit the search results by property name.
+contributor | Limit the search results by the name of the person that contributed the data.
+reference | Limit the search results by the original reference for the data.
+min_measurement | Minimum value for property value.
+max_measurement | Maximum value for property value.
+from | If using pagination, set the index of starting record. Defaults to 0.
+per_page | If using pagination, sets the number of records that are returned. Defaults to 10.
+
+### Search a Single Data set
+
+```python
+# Retrieve the power factor of CrFeSn in data set 12
+from citrination_client import CitrinationClient
+client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
+client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10, data_set_id='12')
+```
+
+```shell
+# Retrieve the power factor of CrFeSn in data set 12
+curl https://your-site.citrination.com/api/data_sets/_ID_/mifs/search
+  -H 'X-API-Key: your-api-key'
+  -d 'formula=CrFeSn&property=power+factor&from=0&per_page=10'
+```
+
+The data-set-specific search API is accessed at https://your-site.citrination.com/api/data_sets/_ID_/mifs/search. This will search against the single data set with id equal to _ID_ at your-site.citrination.com. This API supports the same set of parameters as [searching all data sets](#search_all).
+
+### Search Results
 
 
-<aside class="success">
-Don't forget your API key!
-</aside>
 
 <!--
 ## Upload Data
