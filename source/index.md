@@ -24,7 +24,7 @@ The API currently includes the ability to search against data already on citrina
 
 ## Accessing Your Site
 
-The API can be accessed at https://citrination.com or at any sub-domain, e.g. https://your-site.citrination.com (where "your-site" is the specific site that you want to access).
+The API can be accessed at https://citrination.com/api or at any sub-domain, e.g. https://your-site.citrination.com/api (where "your-site" is the specific site that you want to access).
 
 ## API Token
 
