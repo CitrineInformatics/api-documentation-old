@@ -16,40 +16,47 @@ search: true
 
 # Introduction
 
-Welcome to the Citrination API Documentation! The Citrination API can be used to query our extensive database of material properties in a couple of exciting ways.
+This document includes necessary information for working with the citrination API using either a shell (via curl) or python script. For every example, you can switch between languages using the tabs to the right.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+The API currently includes the ability to search against data already on citrination. Additional features will be added in the future and included in this document.
 
-Data from the API is returned in the MIF file format. Read more about the [Mif file format](http://citrineinformatics.github.io/mif-documentation). Our documentation also references a  python reference implementation. Download the [python reference implementation](https://github.com/CitrineInformatics/python-citrination-client).
+# Using the API
 
-# Authentication
+## Accessing Your Site
 
-> To authenticate, you must obtain your API key from Citrine Informatics
+The API can be accessed at https://citrination.com or at any sub-domain, e.g. https://your-site.citrination.com (where "your-site" is the specific site that you want to access).
+
+## API Token
+
+Each citrination user is assigned a unique access key. You can access your API key by logging into your-site.citrination.com and clicking on "Account" at the top of the page.
+
+Note that your API Token is valid only on the site that you accessed it from. In other words, a token for accessing the API at your-site.citrination.com is not valid for another-site.citrination.com.
+
+## Connecting to the API
 
 ```python
+# Your API key is used in the constructor for CitrinationClient objects
 from citrination_client import CitrinationClient
-client = CitrinationClient('your-unique-api-key', 'https://yoursite.citrination.com')
+client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
 ```
 
 ```shell
 # Authentication tokens must be applied to the headers of any requests made to the Citrination API
-curl "https://yoursite.citrination.com"
-  -H "X-API-Key: your-unique-api-key"
+curl https://your-site.citrination.com
+  -H 'X-API-Key: your-unique-api-key'
 ```
 
-Citrination uses API keys to allow access to the API. You can register a new API key by logging in to your instance of Citrination, clicking on your username and selecting 'Account'.
+The API can be easily accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from https://github.com/CitrineInformatics/python-citrination-client
 
-Citrination expects for the API key to be included in all API requests to the server in a header that looks like the following:
+## Search API
 
-`X-API-Key: your-unique-api-key`
+### Search All Data Sets
 
-# Materials Data
-
-## Search Data
 ```python
+# Retrieve the power factor of CrFeSn
 from citrination_client import CitrinationClient
-client = CitrinationClient('your-unique-api-key', 'https://yoursite.citrination.com')
-client.search(term='RbOs2O6', from_page=0, per_page=10)
+client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
+client.search(formula='CrFeSn', property='Power factor' from_page=0, per_page=10)
 ```
 
 ```shell
@@ -58,6 +65,12 @@ curl --data "term=RbOs2O6&from=0&per_page=10"
   -H "X-API-Key: your-api-key"
   -H "Content-Type: application/json"
 ```
+
+
+
+
+
+
 
 > The above command returns JSON structured like this:
 
@@ -95,15 +108,13 @@ curl --data "term=RbOs2O6&from=0&per_page=10"
 
 This endpoint searches data based on text input to the term field. We index chemical formulas in a variety of ways, and the term field in this method is very flexible. For example, you could search "band gap of gallium nitride", or "ternary oxides" and get back a variety of interesting results, ranked according to our proprietary scoring algorithm.
 
-### HTTP Request
-`POST https://your-site.citrination.com/api/mifs/search`
-
 ### Query Parameters
 
 Parameter | Required | Description
 --------- | ------- | -----------
 term | true | The basic search query
 formula | false | Limit the search results by the chemical formula entered here
+property | false | Name of the property to search for
 contributor | false | Limit the search results by the name of the person that contributed the data
 reference | false | Limit the search results by the original reference for the data
 min_measurement | false | Minimum decimal value for property value
@@ -120,7 +131,7 @@ Don't forget your API key!
 ## Search a specific data set  
 ```python
 from citrination_client import CitrinationClient
-client = CitrinationClient('your-unique-api-key', 'https://yoursite.citrination.com')
+client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
 client.search(term='RbOs2O6', from_page=0, per_page=10, data_set_id=213)
 ```
 
@@ -204,7 +215,7 @@ Don't forget your API key!
 ## Upload Data
 ```python
 from citrination_client import CitrinationClient
-client = CitrinationClient('your-unique-api-key', 'https://yoursite.citrination.com')
+client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
 client.upload(name='My Published Paper', description='Band Gaps of My Favorite Compounds', filename='mypaper.pdf')
 ```
 
