@@ -86,7 +86,7 @@ per_page | If using pagination, sets the number of records that are returned. De
 # Retrieve the power factor of CrFeSn in data set 12
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10, data_set_id='12')
+r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10, data_set_id='12')
 ```
 
 ```shell
