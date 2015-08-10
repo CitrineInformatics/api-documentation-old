@@ -91,7 +91,7 @@ client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=1
 
 ```shell
 # Retrieve the power factor of CrFeSn in data set 12
-curl https://your-site.citrination.com/api/data_sets/_ID_/mifs/search
+curl https://your-site.citrination.com/api/data_sets/12/mifs/search
   -H 'X-API-Key: your-api-key'
   -d 'formula=CrFeSn&property=power+factor&from=0&per_page=10'
 ```
