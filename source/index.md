@@ -80,7 +80,7 @@ max_measurement | Maximum value for property value.
 from | If using pagination, set the index of starting record. Defaults to 0.
 per_page | If using pagination, sets the number of records that are returned. Defaults to 10.
 
-### Search a Single Data set
+### <a name=search_single>Search a Single Data set</a>
 
 ```python
 # Retrieve the power factor of CrFeSn in data set 12
@@ -100,7 +100,67 @@ The data-set-specific search API is accessed at https://your-site.citrination.co
 
 ### Search Results
 
+> Example response from the search API
 
+```json
+{
+    "hits": 1,
+    "results": [
+        {
+            "sample": {
+                "data_set_id": 1,
+                "material": {
+                    "chemicalFormula": "CrFeSn"
+                },
+                "measurement": [
+                    {
+                        "dataType": "Experimental",
+                        "property": {
+                            "units": "mW/K$^2 \\cdot$m",
+                            "scalar": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "name": "Power factor"
+                        },
+                        "reference": [
+                            {
+                                "citation": "10.1143/JPSJ.79.124702"
+                            }
+                        ]
+                    },
+                    {
+                        "dataType": "Experimental",
+                        "property": {
+                            "scalar": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "name": "Thermoelectric figure of merit (zT)"
+                        },
+                        "reference": [
+                            {
+                                "citation": "10.1143/JPSJ.79.124702"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "time": 3
+}
+```
+
+Results from a search across [all data sets](#search_all) or a [single data set](#search_single) return the same response, an example of which is shown to the right.
+
+The top level object of a search result contains three fields: hits, which gives the number of results that were found; time, which is the number of milliseconds that the search endpoint took to run the query; results, which contains the records that matched the search query. The value of the results field is structured according to the [MIF Schema](http://citrineinformatics.github.io/mif-documentation).
+
+### Rate Limiting
+
+Access to the search API is rate-limited. Currently users must wait 10 seconds between search requests via the API. The API will return a 429 response code when the rate limit is exceeded (note that the timer is reset each time that a request is made, regardless of whether results were returned or not).
 
 <!--
 ## Upload Data
@@ -114,3 +174,9 @@ You can upload data using the python client, but not directly through HTTP at th
 Uploading data will start it off in our data processing pipeline, and in a few minutes time
 it will be available on the web via https://your-site.citrination.com/data_uploads
 -->
+
+# Useful Links
+
+* [http://citrineinformatics.github.io/api-documentation](http://citrineinformatics.github.io/api-documentation) This document.
+* [http://citrineinformatics.github.io/mif-documentation](http://citrineinformatics.github.io/mif-documentation) Definition of the MIF schema (structure of the results of the search API).
+* [https://github.com/CitrineInformatics/python-citrination-client](https://github.com/CitrineInformatics/python-citrination-client) Python client for accessing the citrination API.
