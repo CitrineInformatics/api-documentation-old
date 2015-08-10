@@ -2,6 +2,7 @@
 title: Citrination API Reference
 
 language_tabs:
+  - shell
   - python
 
 toc_footers:
