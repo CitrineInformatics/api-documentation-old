@@ -56,7 +56,7 @@ The API can be accessed using HTTP requests or a python client. An implementatio
 # Retrieve the power factor of CrFeSn
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10)
+r = client.search(formula='CrFeSn', property='power factor')
 # Use r.json() to convert the content of the response from JSON
 ```
 
@@ -64,7 +64,7 @@ r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_pa
 # Retrieve the power factor of CrFeSn
 curl https://your-site.citrination.com/api/mifs/search
   -H 'X-API-Key: your-api-key'
-  -d 'formula=CrFeSn&property=power+factor&from=0&per_page=10'
+  -d 'formula=CrFeSn&property=power+factor'
 ```
 
 The general search API is accessed at https://your-site.citrination.com/api/mifs/search. This will search across all data sets stored at your-site.citrination.com. The following parameters are supported (all are optional):
@@ -79,7 +79,7 @@ reference | Limit the search results by the original reference for the data.
 min_measurement | Minimum value for property value.
 max_measurement | Maximum value for property value.
 from | If using pagination, set the index of starting record. Defaults to 0.
-per_page | If using pagination, sets the number of records that are returned. Defaults to 10.
+per_page | If using pagination, sets the number of records that are returned. Defaults to 10. The maximum value is 100 (see [pagination](#pagination)).
 
 ### <a name=search_single>Search a Single Data set</a>
 
@@ -87,7 +87,7 @@ per_page | If using pagination, sets the number of records that are returned. De
 # Retrieve the power factor of CrFeSn in data set 12
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10, data_set_id='12')
+r = client.search(formula='CrFeSn', property='power factor'data_set_id='12')
 # Use r.json() to convert the content of the response from JSON
 ```
 
@@ -95,7 +95,7 @@ r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_pa
 # Retrieve the power factor of CrFeSn in data set 12
 curl https://your-site.citrination.com/api/data_sets/12/mifs/search
   -H 'X-API-Key: your-api-key'
-  -d 'formula=CrFeSn&property=power+factor&from=0&per_page=10'
+  -d 'formula=CrFeSn&property=power+factor'
 ```
 
 The data-set-specific search API is accessed at https://your-site.citrination.com/api/data_sets/_ID_/mifs/search. This will search against the single data set with id equal to _ID_ at your-site.citrination.com. This API supports the same set of parameters as [searching all data sets](#search_all).
@@ -163,6 +163,24 @@ The top level object of a search result contains three fields: hits, which gives
 #### Python Response
 
 The return object of CitrinationClient.search() is a [response object](http://www.python-requests.org/en/latest/api/#requests.Response) from the [requests package](http://www.python-requests.org). In the search examples, r.status_code gives the status code from the API response and r.json() decodes the content of the response from JSON.
+
+### <a name="pagination">Pagination</a>
+
+```python
+from citrination_client import CitrinationClient
+client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
+size = 1
+start = 0
+while size > 0:
+  r = client.search(data_set_id='1', from=start, per_page=100)
+  size = len(r.json())
+  start += size
+  time.sleep(10) # Remember to sleep to avoid rate limiting!
+```
+
+If you need to access more results than the number specified by _per_page_, then you can iterate through them by setting the _from_ parameter. The python example to the right shows the code to iterate through all records a data set with id '1'.
+
+There is a hard limit of 100 results returned per request. Any value of _per_page_ larger than that will be reduced to 100.
 
 ### Rate Limiting
 
