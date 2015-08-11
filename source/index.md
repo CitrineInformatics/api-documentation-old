@@ -167,6 +167,7 @@ The return object of CitrinationClient.search() is a [response object](http://ww
 ### <a name="pagination">Pagination</a>
 
 ```python
+# Page through all records in data set with id '1'
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
 size = 1
