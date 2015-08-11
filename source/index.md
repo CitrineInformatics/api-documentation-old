@@ -67,7 +67,7 @@ curl https://your-site.citrination.com/api/mifs/search
   -d 'formula=CrFeSn&property=power+factor'
 ```
 
-The general search API is accessed at https://your-site.citrination.com/api/mifs/search. This will search across all data sets stored at your-site.citrination.com. The following parameters are supported (all are optional):
+The general search API is accessed at https://your-site.citrination.com/api/mifs/search. This will search across all data sets stored at your-site.citrination.com. The following parameters are supported:
 
 Parameter | Description
 --------- | ------- | -----------
@@ -81,13 +81,15 @@ max_measurement | Maximum value for property value.
 from | If using pagination, set the index of starting record. Defaults to 0.
 per_page | If using pagination, sets the number of records that are returned. Defaults to 10. The maximum value is 100 (see [pagination](#pagination)).
 
+\* When searching over *all* data sets, at least one parameter other than _from_ or _per_page_ must be set.
+
 ### <a name=search_single>Search a Single Data set</a>
 
 ```python
 # Retrieve the power factor of CrFeSn in data set 12
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
-r = client.search(formula='CrFeSn', property='power factor'data_set_id='12')
+r = client.search(formula='CrFeSn', property='power factor', data_set_id='12')
 # Use r.json() to convert the content of the response from JSON
 ```
 
