@@ -57,6 +57,7 @@ The API can be easily accessed using HTTP requests or a python client. An implem
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
 r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10)
+# Use r.json() to convert the content of the response from JSON
 ```
 
 ```shell
@@ -87,6 +88,7 @@ per_page | If using pagination, sets the number of records that are returned. De
 from citrination_client import CitrinationClient
 client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination.com')
 r = client.search(formula='CrFeSn', property='power factor', from_page=0, per_page=10, data_set_id='12')
+# Use r.json() to convert the content of the response from JSON
 ```
 
 ```shell
