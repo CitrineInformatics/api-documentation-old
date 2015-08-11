@@ -551,14 +551,34 @@ html, body {
     @extend %code-font;
   }
 
+  blockquote:before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-image: url("../images/triangle.gif");
+    background-repeat: no-repeat;
+    position: absolute;
+    left: -12px;
+    top: 0px;
+    z-index: 1000;
+  }
+
   blockquote {
+    border-top: 1em solid $examples-bg;
     &>p {
       background-color: $code-annotation-bg;
-      border-radius: 5px;
+      //border-radius: 5px;
       padding: $code-annotation-padding;
       color: #ccc;
-      border-top: 1px solid #000;
-      border-bottom: 1px solid #404040;
+      //border-top: 1px solid #000;
+      //border-bottom: 2px solid #404040;
+    }
+    a:first-child:before {
+      content: url('../images/lab.png');
+      position: relative;
+      top: 10px;
+      left: -6px;
     }
   }
 }
