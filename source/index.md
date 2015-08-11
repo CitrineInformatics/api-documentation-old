@@ -176,7 +176,7 @@ while size > 0:
   r = client.search(data_set_id='1', from=start, per_page=100)
   size = len(r.json())
   start += size
-  time.sleep(10) # Remember to sleep to avoid rate limiting!
+  time.sleep(3) # Remember to sleep to avoid rate limiting!
 ```
 
 If you need to access more results than the number specified by _per_page_, then you can iterate through them by setting the _from_ parameter. The python example to the right shows the code to iterate through all records in a data set with id '1'.
@@ -185,7 +185,7 @@ There is a hard limit of 100 results returned per request. Any value of _per_pag
 
 ### Rate Limiting
 
-Access to the search API is rate-limited. Currently users must wait 10 seconds between search requests via the API. The API will return a 403 response code when the rate limit is exceeded (note that the timer is reset each time that a request is made, regardless of whether results were returned or not).
+Access to the search API is rate-limited. Currently users must wait 3 seconds between search requests via the API. The API will return a 403 response code when the rate limit is exceeded (note that the timer is reset each time that a request is made, regardless of whether results were returned or not).
 
 <!--
 ## Upload Data
