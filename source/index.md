@@ -46,7 +46,7 @@ curl https://your-site.citrination.com
   -H 'X-API-Key: your-unique-api-key'
 ```
 
-The API can be easily accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from [https://github.com/CitrineInformatics/python-citrination-client](https://github.com/CitrineInformatics/python-citrination-client). Python examples in this document use this client.
+The API can be accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from [https://github.com/CitrineInformatics/python-citrination-client](https://github.com/CitrineInformatics/python-citrination-client). Python examples in this document use this client.
 
 ## Search API
 
