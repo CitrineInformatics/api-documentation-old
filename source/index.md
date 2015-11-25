@@ -78,10 +78,10 @@ contributor | Limit the search results by the name of the person that contribute
 reference | Limit the search results by the original reference for the data.
 min_measurement | Minimum value for property value.
 max_measurement | Maximum value for property value.
-from | If using pagination, set the index of starting record. Defaults to 0.
+from_record | If using pagination, set the index of starting record. Defaults to 0.
 per_page | If using pagination, sets the number of records that are returned. Defaults to 10. The maximum value is 100 (see [pagination](#pagination)).
 
-\* When searching over *all* data sets, at least one parameter other than _from_ or _per_page_ must be set.
+\* When searching over *all* data sets, at least one parameter other than _from_record_ or _per_page_ must be set.
 
 ### <a name=search_single>Search a Single Data set</a>
 
@@ -175,7 +175,7 @@ client = CitrinationClient('your-unique-api-key', 'https://your-site.citrination
 size = 1
 start = 0
 while size > 0:
-  r = client.search(data_set_id='1', from=start, per_page=100)
+  r = client.search(data_set_id='1', from_record=start, per_page=100)
   size = len(r.json())
   start += size
   time.sleep(3) # Remember to sleep to avoid rate limiting!
@@ -184,7 +184,7 @@ while size > 0:
 ```shell
 ```
 
-If you need to access more results than the number specified by _per_page_, then you can iterate through them by setting the _from_ parameter. The python example to the right shows the code to iterate through all records in a data set with id '1'.
+If you need to access more results than the number specified by _per_page_, then you can iterate through them by setting the _from_record_ parameter. The python example to the right shows the code to iterate through all records in a data set with id '1'.
 
 There is a hard limit of 100 results returned per request. Any value of _per_page_ larger than that will be reduced to 100.
 
