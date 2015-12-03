@@ -176,7 +176,7 @@ size = 1
 start = 0
 while size > 0:
   r = client.search(data_set_id='1', from_record=start, per_page=100)
-  size = len(r.json())
+  size = len(r.json()['results'])
   start += size
   time.sleep(3) # Remember to sleep to avoid rate limiting!
 ```
