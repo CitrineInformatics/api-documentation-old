@@ -46,7 +46,7 @@ curl https://your-site.citrination.com
   -H 'X-API-Key: your-unique-api-key'
 ```
 
-The API can be accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from [https://github.com/CitrineInformatics/python-citrination-client](https://github.com/CitrineInformatics/python-citrination-client). Python examples in this document use this client.
+The API can be accessed using HTTP requests or a python client. An implementation of the python client can be downloaded from [https://github.com/CitrineInformatics/python-citrination-client/tree/legacy](https://github.com/CitrineInformatics/python-citrination-client/tree/legacy). Python examples in this document use this client.
 
 ## Search API
 
@@ -160,7 +160,7 @@ The data-set-specific search API is accessed at https://your-site.citrination.co
 
 Results from a search across [all data sets](#search_all) or a [single data set](#search_single) return the same response, an example of which is shown to the right.
 
-The top level object of a search result contains three fields: hits, which gives the number of results that were found; time, which is the number of milliseconds that the search endpoint took to run the query; results, which contains the records that matched the search query. The value of the results field is structured according to the [MIF Schema](http://citrineinformatics.github.io/mif-documentation).
+The top level object of a search result contains three fields: hits, which gives the number of results that were found; time, which is the number of milliseconds that the search endpoint took to run the query; results, which contains the records that matched the search query. The value of the results field is structured according to the [MIF Schema](http://www.citrine.io/mif).
 
 #### Python Response
 
@@ -207,6 +207,6 @@ it will be available on the web via https://your-site.citrination.com/data_uploa
 
 # Useful Links
 
-* [http://citrineinformatics.github.io/api-documentation](http://citrineinformatics.github.io/api-documentation) This document.
-* [http://citrineinformatics.github.io/mif-documentation](http://citrineinformatics.github.io/mif-documentation) Definition of the MIF schema (structure of the results of the search API).
-* [https://github.com/CitrineInformatics/python-citrination-client](https://github.com/CitrineInformatics/python-citrination-client) Python client for accessing the citrination API.
+* [http://www.citrine.io/api](http://www.citrine.io/api) This document.
+* [http://www.citrine.io/mif](http://www.citrine.io/mif) Definition of the MIF schema (structure of the results of the search API).
+* [https://github.com/CitrineInformatics/python-citrination-client/tree/legacy](https://github.com/CitrineInformatics/python-citrination-client/tree/legacy) Python client for accessing the citrination API.
